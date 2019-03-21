@@ -14,11 +14,20 @@
     <context:component-scan base-package="com.kuzan.permission.controller"/>
     <context:component-scan base-package="com.kuzan.permission.service"/>
 
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"></bean>
+    <!--json 格式数据返回-->
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
     <!--启用视图解析器-->
     <bean id="InternalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--自定义的全局异常处理-->
+    <bean class="com.kuzan.permission.commons.GlobalExceptionResolver"></bean>
 
+    <!-- 自定义拦截器-->
+    <mvc:interceptors>
+        <bean class="com.kuzan.permission.commons.HttpInterceptor"></bean>
+    </mvc:interceptors>
 </beans>

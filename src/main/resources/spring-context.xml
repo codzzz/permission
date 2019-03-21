@@ -49,4 +49,7 @@
     <bean class="com.alibaba.druid.wall.WallFilter">
         <property name="dbType" value="mysql"/>
     </bean>
+
+    <!--获取spring 上下文的bean-->
+    <bean class="com.kuzan.permission.commons.ApplicationContextHelper"/>
 </beans>
