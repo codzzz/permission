@@ -14,7 +14,7 @@ import java.util.Map;
 public class BaseResult {
     private boolean ret;
     private String msg;
-    private Object obj;
+    private Object data;
 
     private BaseResult(boolean ret){
         this.ret = ret;
@@ -22,14 +22,14 @@ public class BaseResult {
     public static BaseResult success(Object obj, String msg){
         BaseResult result = new BaseResult(true);
         result.msg = msg;
-        result.obj = obj;
+        result.data = obj;
         return result;
     }
     public static BaseResult success(String msg){
         return success(null,msg);
     }
-    public static BaseResult success(Object obj){
-        return success(obj,null);
+    public static BaseResult success(Object data){
+        return success(data,null);
     }
     public static BaseResult success(){
         return success(null,null);

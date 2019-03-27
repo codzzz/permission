@@ -163,4 +163,75 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findUserByKeyword" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_user
+    WHERE telephone = #{keyword}
+    or mail = #{keyword}
+  </select>
+  <select id="countUserByEmail" resultType="int">
+    SELECT count(1)
+    FROM sys_user
+    WHERE mail = #{mail}
+    <if test="id != null">
+      AND id != #{id}
+    </if>
+  </select>
+  <select id="countUserByTelephone" resultType="int">
+    SELECT count(1)
+    FROM sys_user
+    WHERE telephone = #{telephone}
+    <if test="id != null">
+      AND id != #{id}
+    </if>
+  </select>
+  <select id="countUserByDeptId" resultType="int">
+    SELECT count(1)
+    FROM sys_user
+    WHERE dept_id = #{deptId}
+  </select>
+  <select id="getPageByDeptId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_user
+    WHERE dept_id = #{deptId}
+    ORDER BY username ASC
+    limit #{page.offset},#{page.pageSize}
+  </select>
+
+  <select id="countUserByListId" resultType="int">
+    SELECT count(1)
+    FROM sys_user
+    WHERE dept_id IN
+    <foreach collection="list" separator="," open="(" close=")" item="deptid">
+      #{deptid}
+    </foreach>
+  </select>
+
+  <select id="getPageByDeptListId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_user
+    WHERE dept_id IN
+    <foreach collection="listId" separator="," open="(" close=")" item="deptid">
+      #{deptid}
+    </foreach>
+    ORDER BY username ASC
+    limit #{page.offset},#{page.pageSize}
+  </select>
+  <select id="getUserListByIdlist" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_user
+    WHERE id IN
+    <foreach collection="list" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+  </select>
+  <select id="listAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_user
+  </select>
 </mapper>

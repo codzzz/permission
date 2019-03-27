@@ -1,7 +1,10 @@
 package com.kuzan.permission.entity;
 
+import lombok.Builder;
+
 import java.util.Date;
 
+@Builder
 public class SysRoleUser {
     private Integer id;
 

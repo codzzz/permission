@@ -1,7 +1,12 @@
 package com.kuzan.permission.entity;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+
 import java.util.Date;
 
+@Builder
+@EqualsAndHashCode(of = "id")
 public class SysAcl {
     private Integer id;
 

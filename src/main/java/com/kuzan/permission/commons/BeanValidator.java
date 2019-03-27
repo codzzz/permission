@@ -3,7 +3,9 @@ package com.kuzan.permission.commons;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.kuzan.permission.exception.ParamException;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -62,16 +64,23 @@ public class BeanValidator {
     }
 
     /**
-     * public 方法
+     * 封装 方法
      * @param first
      * @param objs
      * @return
      */
-    public static Map<String,String> validate(Object first,Object... objs){
+    private static Map<String,String> validate(Object first,Object... objs){
         if (CollectionUtils.isNotEmpty(Arrays.asList(objs))){
             return validate(Lists.asList(first,objs));
         }else {
             return validate(first,new Class[0]);
+        }
+    }
+
+    public static void check(Object param) throws ParamException{
+        Map<String,String> map = validate(param);
+        if (MapUtils.isNotEmpty(map)){
+            throw new ParamException(map.toString());
         }
     }
 }

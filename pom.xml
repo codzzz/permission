@@ -148,6 +148,19 @@
       <artifactId>hibernate-validator</artifactId>
       <version>5.4.1.Final</version>
     </dependency>
+
+    <!--email-->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-email</artifactId>
+      <version>1.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>3.0.0</version>
+    </dependency>
   </dependencies>
 
 

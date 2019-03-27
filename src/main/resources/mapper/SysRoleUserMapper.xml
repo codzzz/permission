@@ -105,4 +105,25 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getRoleIdListByUserId" resultType="int">
+    SELECT role_id
+    FROM sys_role_user
+    WHERE user_id = #{userId}
+  </select>
+  <select id="getUserIdByRoleId" resultType="integer">
+    SELECT user_id
+    FROM sys_role_user
+    WHERE role_id = #{roleId}
+  </select>
+  <delete id="deleteByRoleId" parameterType="int">
+    DELETE FROM sys_role_user
+    WHERE role_id = #{roleId}
+  </delete>
+  <insert id="batchInsertSysRoleUser">
+    INSERT INTO sys_role_user(role_id,user_id,operator,operate_time,operate_ip)
+    VALUES
+    <foreach collection="list" separator="," item="roleUser">
+      (#{roleUser.roleId}, #{roleUser.userId},#{roleUser.operator}, #{roleUser.operateTime}, #{roleUser.operateIp})
+    </foreach>
+  </insert>
 </mapper>

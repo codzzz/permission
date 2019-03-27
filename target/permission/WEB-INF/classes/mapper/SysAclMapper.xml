@@ -176,4 +176,46 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="countByNameAndAclModuleId" resultType="int">
+    SELECT count(1)
+    FROM sys_acl
+    WHERE name = #{name}
+    AND acl_module_id = #{aclModuleId}
+    <if test="id != null">
+      and id != #{id}
+    </if>
+  </select>
+  <select id="countByAclModuleId" resultType="int">
+    SELECT count(1)
+    FROM sys_acl
+    WHERE acl_module_id = #{aclModuleId}
+  </select>
+  <select id="getPageByAclModuleId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_acl
+    WHERE acl_module_id = #{aclModuleId}
+    ORDER BY seq asc, name asc
+    LIMIT #{page.offset},#{page.pageSize}
+  </select>
+  <select id="listAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_acl;
+  </select>
+  <select id="listByListId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sys_acl
+    WHERE id IN
+    <foreach collection="list" open="(" separator="," item="id" close=")">
+      #{id}
+    </foreach>
+  </select>
+  <select id="listByUrl" parameterType="string" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM sys_acl
+    WHERE url = #{url}
+  </select>
 </mapper>

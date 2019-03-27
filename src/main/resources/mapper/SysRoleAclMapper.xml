@@ -105,4 +105,24 @@
       operate_ip = #{operateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getAclIdByRoleIdList" resultType="int">
+    SELECT acl_id
+    FROM sys_role_acl
+    WHERE role_id IN
+    <foreach collection="list" close=")" item="roleId" separator="," open="(">
+      #{roleId}
+    </foreach>
+  </select>
+  <delete id="deleteByRoleId" parameterType="int">
+    DELETE FROM sys_role_acl
+    WHERE role_id = #{roleId}
+  </delete>
+  <insert id="batchInsertSysRoleAcl">
+    INSERT INTO sys_role_acl(role_id,acl_id,operator,operate_time,operate_ip)
+    VALUES
+    <foreach collection="list" separator="," item="roleAcl">
+      (#{roleAcl.roleId}, #{roleAcl.aclId},#{roleAcl.operator}, #{roleAcl.operateTime}, #{roleAcl.operateIp})
+    </foreach>
+  </insert>
+
 </mapper>

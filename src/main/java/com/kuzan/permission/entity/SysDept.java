@@ -1,7 +1,11 @@
 package com.kuzan.permission.entity;
 
-import java.util.Date;
+import lombok.Builder;
+import lombok.ToString;
 
+import java.util.Date;
+@Builder
+@ToString
 public class SysDept {
     private Integer id;
 

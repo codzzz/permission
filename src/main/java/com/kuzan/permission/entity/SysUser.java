@@ -1,7 +1,12 @@
 package com.kuzan.permission.entity;
 
+import lombok.Builder;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Builder
+@ToString
 public class SysUser {
     private Integer id;
 
